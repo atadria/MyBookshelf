@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.collections.FXCollections?>
+<?import gui.Book?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<GridPane alignment="center" hgap="10" prefHeight="400.0" prefWidth="750.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Screen1">
+
+    <children>
+        <Button accessibleHelp="Go to main page" mnemonicParsing="false" onAction="#onActionBack" prefHeight="20.0" prefWidth="200.0" text="BACK" GridPane.columnIndex="1" GridPane.rowIndex="7">
+            <padding>
+                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+            </padding>
+        </Button>
+        <Button accessibleHelp="Add book" mnemonicParsing="false" onAction="#onActionAdd" prefHeight="20.0" prefWidth="200.0" text="ADD BOOK" GridPane.columnIndex="1" GridPane.rowIndex="6">
+            <padding>
+                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+            </padding>
+        </Button>
+      <VBox prefHeight="200.0" prefWidth="700.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+         <children>
+            <TableView fx:id="booksList">
+                <columns>
+                    <TableColumn prefWidth="200.0" text="Title">
+                        <cellValueFactory><PropertyValueFactory property="title" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn prefWidth="200.0" text="Author">
+                        <cellValueFactory><PropertyValueFactory property="author" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn prefWidth="300.0" text="ISBN">
+                        <cellValueFactory><PropertyValueFactory property="ISBN" />
+                        </cellValueFactory>
+                    </TableColumn>
+                </columns>
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <Book title=" " author=" " ISBN=" "/>
+                    </FXCollections>
+                </items>
+
+            </TableView>
+         </children>
+      </VBox>
+      <HBox prefHeight="25" prefWidth="523.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+          <children>
+              <TextField fx:id="searchedItem" />
+              <Button mnemonicParsing="false" onAction="#find" prefHeight="25.0" prefWidth="100.0" text="Find" />
+          </children>
+      </HBox>
+    </children>
+</GridPane>
