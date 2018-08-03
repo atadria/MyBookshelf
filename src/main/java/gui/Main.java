@@ -15,8 +15,9 @@ public class Main extends Application {
 
         ScreensController mainContainer = new ScreensController();
         mainContainer.loadScreen("main","/mainscreen.fxml");
-        mainContainer.loadScreen("scene1","/screen1.fxml");
-        mainContainer.loadScreen("scene2","/screen2.fxml");
+        mainContainer.loadScreen("scene1", "/screenFindBooks.fxml");
+        mainContainer.loadScreen("scene2", "/screenManageBooks.fxml");
+        mainContainer.loadScreen("scene3", "/screenEdit.fxml");
 
         mainContainer.setScreen("main");
         Group root = new Group();
@@ -24,18 +25,7 @@ public class Main extends Application {
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
-
-
-//        window = primaryStage;
-//
-//        Parent root = FXMLLoader.load(getClass().getResource("/mainscreen.fxml"));
-//        primaryStage.setTitle("MyBookshelf");
-//        primaryStage.setScene(new Scene(root, 300, 275));
-//
-//        primaryStage.show();
-
     }
-
 
     public static void main(String[] args) {
         launch(args);

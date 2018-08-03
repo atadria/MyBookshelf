@@ -2,6 +2,7 @@ package gui;
 
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import database.Book;
 import database.BookPersisting;
 import googlesearch.BooksFinder;
 import javafx.collections.ObservableList;
@@ -17,7 +18,7 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class Screen1 implements Initializable, ControlledScreen {
+public class ScreenFindBooks implements Initializable, ControlledScreen {
 
     ScreensController myController;
 

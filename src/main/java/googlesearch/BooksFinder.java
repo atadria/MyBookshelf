@@ -6,7 +6,7 @@ import com.google.api.services.books.Books;
 import com.google.api.services.books.Books.Volumes.List;
 import com.google.api.services.books.model.Volume;
 import com.google.api.services.books.model.Volumes;
-import gui.Book;
+import database.Book;
 import javafx.collections.ObservableList;
 
 public class BooksFinder {
@@ -27,15 +27,11 @@ public class BooksFinder {
         for (Volume volume : volumes.getItems()) {
             Volume.VolumeInfo volumeInfo = volume.getVolumeInfo();
 
-            // Title.
-            System.out.println("Title: " + volumeInfo.getTitle());
-            // Author(s).
             java.util.List<String> authors = volumeInfo.getAuthors();
             String author = " ";
             if(authors != null && !authors.isEmpty()){
                 author = String.join(", ",authors);
             }
-
             java.util.List<Volume.VolumeInfo.IndustryIdentifiers> isbns = volumeInfo.getIndustryIdentifiers();
             String identifier = "";
             if(isbns !=null && !isbns.isEmpty()){
@@ -44,10 +40,21 @@ public class BooksFinder {
                 }
             }
 
-            System.out.println("Author: " + author);
-            System.out.println("ISBN: " + identifier);
-            System.out.println("Date: " + volumeInfo.getPublishedDate());
-            booksList.add(new Book(volumeInfo.getTitle(), author, identifier));
+            String subtitle = volumeInfo.getSubtitle();
+            String publisher = volumeInfo.getPublisher();
+            String date = volumeInfo.getPublishedDate();
+
+            Book book = new Book(volumeInfo.getTitle(), author, identifier);
+            if(subtitle != null ){
+                book.setSubtitle(subtitle);
+            }
+            if(publisher != null ){
+                book.setPublisher(publisher);
+            }
+            if(date != null ){
+                book.setDate(date);
+            }
+            booksList.add(book);
         }
     }
 

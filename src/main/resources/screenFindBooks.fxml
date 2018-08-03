@@ -10,9 +10,9 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.collections.FXCollections?>
-<?import gui.Book?>
+<?import database.Book?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
-<GridPane alignment="center" hgap="10" prefHeight="400.0" prefWidth="750.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Screen1">
+<GridPane alignment="center" hgap="10" prefHeight="400.0" prefWidth="750.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ScreenFindBooks">
 
     <children>
         <Button accessibleHelp="Go to main page" mnemonicParsing="false" onAction="#onActionBack" prefHeight="20.0" prefWidth="200.0" text="BACK" GridPane.columnIndex="1" GridPane.rowIndex="7">
@@ -33,8 +33,20 @@
                         <cellValueFactory><PropertyValueFactory property="title" />
                         </cellValueFactory>
                     </TableColumn>
-                    <TableColumn prefWidth="200.0" text="Author">
+                    <TableColumn prefWidth="200.0" text="Subtitle">
+                        <cellValueFactory><PropertyValueFactory property="subtitle" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn prefWidth="150.0" text="Author">
                         <cellValueFactory><PropertyValueFactory property="author" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn prefWidth="150.0" text="Publisher">
+                        <cellValueFactory><PropertyValueFactory property="publisher" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn prefWidth="150.0" text="Date">
+                        <cellValueFactory><PropertyValueFactory property="date" />
                         </cellValueFactory>
                     </TableColumn>
                     <TableColumn prefWidth="300.0" text="ISBN">
@@ -53,9 +65,9 @@
       </VBox>
       <HBox prefHeight="25" prefWidth="523.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
           <children>
-              <TextField fx:id="searchedItem" />
-              <Button mnemonicParsing="false" onAction="#find" prefHeight="25.0" prefWidth="100.0" text="Find" />
-          </children>
+          <TextField fx:id="searchedItem" />
+          <Button mnemonicParsing="false" onAction="#find" prefHeight="25.0" prefWidth="100.0" text="Find" />
+      </children>
       </HBox>
     </children>
 </GridPane>

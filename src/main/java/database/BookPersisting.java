@@ -1,6 +1,5 @@
 package database;
 
-import gui.Book;
 import org.datanucleus.api.jdo.JDOPersistenceManagerFactory;
 import org.datanucleus.metadata.PersistenceUnitMetaData;
 
@@ -8,6 +7,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
+import java.util.Collection;
 import java.util.List;
 
 public class BookPersisting {
@@ -17,10 +17,10 @@ public class BookPersisting {
 
     public BookPersisting(){
         PersistenceUnitMetaData pumd = new PersistenceUnitMetaData("dynamic-unit", "RESOURCE_LOCAL", null);
-        pumd.addClassName("gui.Book");
-        pumd.setExcludeUnlistedClasses();
+//        pumd.addClassName("database.Book");
+//        pumd.setExcludeUnlistedClasses();
         pumd.addProperty("javax.jdo.option.ConnectionDriverName", "org.h2.Driver");
-        pumd.addProperty("javax.jdo.option.ConnectionURL", "jdbc:h2:mem:mybooks");
+        pumd.addProperty("javax.jdo.option.ConnectionURL", "jdbc:h2:file:../mybooks");
         pumd.addProperty("javax.jdo.option.ConnectionUserName", "sa");
         pumd.addProperty("javax.jdo.option.ConnectionPassword", "");
 
@@ -50,11 +50,16 @@ public class BookPersisting {
     }
 
     public List<Book> getBooks(){
-        Query query = pm.newQuery("SELECT FROM " + Book.class);
-
-        List<Book> books = (List<Book>)query.execute();
-
+        Query query = pm.newQuery("SELECT FROM " + Book.class.getName() );
+        List<Book> books = (List<Book>) query.execute();
         return books;
+    }
+
+    public void removeBook(Book book){
+        Query query = pm.newQuery(Book.class, "ISBN == \"" + book.getISBN() + "\"");
+        Collection result = (Collection) query.execute();
+        Book bookToDelete = (Book) result.iterator().next();
+        pm.deletePersistent(bookToDelete);
     }
 
 }
