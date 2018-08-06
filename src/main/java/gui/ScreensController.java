@@ -16,6 +16,10 @@ import java.util.HashMap;
 
 public class ScreensController extends StackPane {
 
+    public HashMap<String, Node> getScreens() {
+        return screens;
+    }
+
     private HashMap<String, Node> screens = new HashMap<>();
 
     public ScreensController(){

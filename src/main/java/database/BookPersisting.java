@@ -49,8 +49,13 @@ public class BookPersisting {
         }
     }
 
+    public List<Book> getBooks(String word){
+        Query query = pm.newQuery(Book.class, "title.matches(\"(?i).*" + word + ".*\")");
+        List<Book> books = (List<Book>) query.execute();
+        return books;
+    }
     public List<Book> getBooks(){
-        Query query = pm.newQuery("SELECT FROM " + Book.class.getName() );
+        Query query = pm.newQuery("SELECT FROM " + Book.class.getName());
         List<Book> books = (List<Book>) query.execute();
         return books;
     }
@@ -61,5 +66,27 @@ public class BookPersisting {
         Book bookToDelete = (Book) result.iterator().next();
         pm.deletePersistent(bookToDelete);
     }
+    public void editBook(Book book,String[] bookInfo){
+        Query query = pm.newQuery(Book.class, "ISBN == \"" + book.getISBN() + "\"");
+        Collection result = (Collection) query.execute();
+        Book bookToEdit = (Book) result.iterator().next();
+        bookToEdit.setTitle(bookInfo[0]);
+        bookToEdit.setSubtitle(bookInfo[1]);
+        bookToEdit.setAuthor(bookInfo[2]);
+        bookToEdit.setPublisher(bookInfo[3]);
+        bookToEdit.setAdditionalInfo(bookInfo[4]);
+        bookToEdit.setISBN(bookInfo[5]);
+        bookToEdit.setDate(bookInfo[6]);
+    }
 
+    public void addBook(String[] list) {
+
+        Book book = new Book(list[0], list[2], list[5]);
+        book.setDate(list[6]);
+        book.setSubtitle(list[1]);
+        book.setPublisher(list[3]);
+        book.setAdditionalInfo(list[4]);
+        saveBook(book);
+
+    }
 }

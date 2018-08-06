@@ -34,17 +34,31 @@ public class BooksFinder {
             }
             java.util.List<Volume.VolumeInfo.IndustryIdentifiers> isbns = volumeInfo.getIndustryIdentifiers();
             String identifier = "";
+            String isbn13=null;
             if(isbns !=null && !isbns.isEmpty()){
                 for(Volume.VolumeInfo.IndustryIdentifiers isbn:isbns){
+                    if (isbn.getType().equals("ISBN_13")){
+                        isbn13 = isbn.getIdentifier();
+                    }
                     identifier += isbn.getType()+": " + isbn.getIdentifier() + ", ";
                 }
             }
+
 
             String subtitle = volumeInfo.getSubtitle();
             String publisher = volumeInfo.getPublisher();
             String date = volumeInfo.getPublishedDate();
 
-            Book book = new Book(volumeInfo.getTitle(), author, identifier);
+
+            Book book;
+
+            if(isbn13!=null){
+                book = new Book(volumeInfo.getTitle(), author, isbn13);
+            }
+            else {
+                book = new Book(volumeInfo.getTitle(), author, identifier);
+            }
+
             if(subtitle != null ){
                 book.setSubtitle(subtitle);
             }

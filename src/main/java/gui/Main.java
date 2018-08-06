@@ -18,6 +18,7 @@ public class Main extends Application {
         mainContainer.loadScreen("scene1", "/screenFindBooks.fxml");
         mainContainer.loadScreen("scene2", "/screenManageBooks.fxml");
         mainContainer.loadScreen("scene3", "/screenEdit.fxml");
+        mainContainer.loadScreen("scene4", "/screenAdd.fxml");
 
         mainContainer.setScreen("main");
         Group root = new Group();

@@ -6,9 +6,14 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ScreenManageBooks implements Initializable, ControlledScreen {
@@ -19,6 +24,8 @@ public class ScreenManageBooks implements Initializable, ControlledScreen {
 
     @FXML
     TableView booksList;
+    @FXML
+    TextField searchedItem;
 
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -41,17 +48,26 @@ public class ScreenManageBooks implements Initializable, ControlledScreen {
 
         ObservableList<Book> data = booksList.getItems();
         data.clear();
-        data.addAll(bookPersisting.getBooks());
+        data.addAll(bookPersisting.getBooks(searchedItem.getText()));
     }
 
     @FXML
     public void onActionDelete(ActionEvent actionEvent) {
-        BookPersisting bookPersisting = new BookPersisting();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText("Do you want to delete this book?");
         currentBook = (Book) booksList.getSelectionModel().getSelectedItem();
-        bookPersisting.removeBook(currentBook);
-        ObservableList<Book> data = booksList.getItems();
-        data.clear();
-        data.addAll(bookPersisting.getBooks());
+        alert.setContentText(currentBook.getTitle());
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            BookPersisting bookPersisting = new BookPersisting();
+            currentBook = (Book) booksList.getSelectionModel().getSelectedItem();
+            bookPersisting.removeBook(currentBook);
+            ObservableList<Book> data = booksList.getItems();
+            data.clear();
+            data.addAll(bookPersisting.getBooks());
+        }
     }
 
     public void onActionEdit(ActionEvent actionEvent) {
@@ -61,6 +77,7 @@ public class ScreenManageBooks implements Initializable, ControlledScreen {
     }
 
     public void onActionAdd(ActionEvent actionEvent) {
+        myController.setScreen("scene4");
     }
 
 

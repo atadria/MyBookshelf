@@ -59,16 +59,12 @@ public class ScreenFindBooks implements Initializable, ControlledScreen {
         BookPersisting bookPersisting = new BookPersisting();
         bookPersisting.saveBook(selectedBook);
 
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("How many books do you want to add?");
-        dialog.setContentText("Please enter number of books:");
-
-        Optional<String> result = dialog.showAndWait();
-//        if (result.isPresent()){
-//            System.out.println("Number of books: " + result.get());
-//        }
-
-        result.ifPresent(numberOfBooks -> System.out.println("Number of books: " + numberOfBooks ));
+//        TextInputDialog dialog = new TextInputDialog();
+//        dialog.setTitle("How many books do you want to add?");
+//        dialog.setContentText("Please enter number of books:");
+//
+//        Optional<String> result = dialog.showAndWait();
+//        result.ifPresent(numberOfBooks -> System.out.println("Number of books: " + numberOfBooks ));
     }
 
 
