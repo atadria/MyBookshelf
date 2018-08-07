@@ -15,7 +15,6 @@ public class BooksFinder {
     public static void queryGoogleBooks(JsonFactory jsonFactory, String query, ObservableList<Book> booksList) throws Exception {
 
         final Books books = new Books.Builder(GoogleNetHttpTransport.newTrustedTransport(), jsonFactory, null).setApplicationName(appName).build();
-        System.out.println("Query: [" + query + "]");
         List volumesList = books.volumes().list(query);
 
         Volumes volumes = volumesList.execute();

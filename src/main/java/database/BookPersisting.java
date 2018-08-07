@@ -24,7 +24,7 @@ public class BookPersisting {
         pumd.addProperty("javax.jdo.option.ConnectionUserName", "sa");
         pumd.addProperty("javax.jdo.option.ConnectionPassword", "");
 
-        pumd.addProperty("datanucleus.autoCreateSchema", "true");
+//        pumd.addProperty("datanucleus.autoCreateSchema", "true");
 
 
         PersistenceManagerFactory pmf = new JDOPersistenceManagerFactory(pumd, null);
@@ -36,7 +36,6 @@ public class BookPersisting {
 
         try{
             pm.makePersistent(book);
-            System.out.println("++++++SAVING++++++");
         }
         catch (Exception e){
             System.out.println(e.getMessage());
@@ -50,7 +49,9 @@ public class BookPersisting {
     }
 
     public List<Book> getBooks(String word){
-        Query query = pm.newQuery(Book.class, "title.matches(\"(?i).*" + word + ".*\")");
+        Query query;
+        query = pm.newQuery(Book.class, "title.matches(\"(?i).*" + word + ".*\")");
+
         List<Book> books = (List<Book>) query.execute();
         return books;
     }
@@ -88,5 +89,52 @@ public class BookPersisting {
         book.setAdditionalInfo(list[4]);
         saveBook(book);
 
+    }
+
+    public List<Book> advancedSearch(String[] list){
+        String q = "";
+        if(list[0] != null && !list[0].trim().isEmpty()){
+            q+="title.matches(\"(?i).*"+ list[0]+ ".*\")";
+        }
+        if(list[1] != null && !list[1].trim().isEmpty()){
+            if (!q.isEmpty()){
+                q+=" && ";
+            }
+            q+="subtitle.matches(\"(?i).*"+ list[1]+ ".*\")";
+        }
+        if(list[2] != null && !list[2].trim().isEmpty()){
+            if (!q.isEmpty()){
+                q+=" && ";
+            }
+            q+="author.matches(\"(?i).*"+ list[2]+ ".*\")";
+        }
+        if(list[3] != null && !list[3].trim().isEmpty()){
+            if (!q.isEmpty()){
+                q+=" && ";
+            }
+            q+="publisher.matches(\"(?i).*"+ list[3]+ ".*\")";
+        }
+        if(list[4] != null && !list[4].trim().isEmpty()){
+            if (!q.isEmpty()){
+                q+=" && ";
+            }
+            q+="date.matches(\"(?i).*"+ list[4]+ ".*\")";
+        }
+        if(list[5] != null && !list[5].trim().isEmpty()){
+            if (!q.isEmpty()){
+                q+=" && ";
+            }
+            q+="ISBN.matches(\"(?i).*"+ list[5]+ ".*\")";
+        }
+        if(list[6] != null && !list[6].trim().isEmpty()){
+            if (!q.isEmpty()){
+                q+=" && ";
+            }
+            q+="additionalInfo.matches(\"(?i).*"+ list[6]+ ".*\")";
+        }
+
+        Query query = pm.newQuery(Book.class, q);
+        List<Book> books = (List<Book>) query.execute();
+        return books;
     }
 }
