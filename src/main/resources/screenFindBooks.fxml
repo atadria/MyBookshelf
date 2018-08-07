@@ -10,9 +10,9 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.collections.FXCollections?>
-<?import database.Book?>
+<?import com.adriata.database.Book?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
-<GridPane alignment="center" hgap="10" prefHeight="400.0" prefWidth="750.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ScreenFindBooks">
+<GridPane alignment="center" hgap="10" prefHeight="400.0" prefWidth="750.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.161" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.adriata.gui.ScreenFindBooks">
 
     <children>
 
@@ -73,6 +73,6 @@
                 <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
             </padding>
         </Button>
-       
+
     </children>
 </GridPane>
